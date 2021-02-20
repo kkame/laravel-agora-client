@@ -26,7 +26,7 @@ class AccessTokenTest extends TestCase
         $builder = AccessToken::init($appID, $appCertificate, $channelName, $uid);
         $builder->message->salt = $salt;
         $builder->message->ts = $ts;
-        $builder->addPrivilege(AccessToken::Privileges["kJoinChannel"], $expiredTs);
+        $builder->addPrivilege(AccessToken::PRIVILEGES["kJoinChannel"], $expiredTs);
         $result = $builder->build();
 
         $this->assertEquals($expected, $result);
@@ -51,7 +51,7 @@ class AccessTokenTest extends TestCase
         $builder = AccessToken::init($appID, $appCertificate, $channelName, $uid);
         $builder->message->salt = $salt;
         $builder->message->ts = $ts;
-        $builder->addPrivilege(AccessToken::Privileges["kJoinChannel"], $expiredTs);
+        $builder->addPrivilege(AccessToken::PRIVILEGES["kJoinChannel"], $expiredTs);
         $result = $builder->build();
 
         $this->assertEquals($expected, $result);
@@ -75,7 +75,7 @@ class AccessTokenTest extends TestCase
         $builder = AccessToken::init($appID, $appCertificate, $channelName, $uid);
         $builder->message->salt = $salt;
         $builder->message->ts = $ts;
-        $builder->addPrivilege(AccessToken::Privileges["kJoinChannel"], $expiredTs);
+        $builder->addPrivilege(AccessToken::PRIVILEGES["kJoinChannel"], $expiredTs);
         $result = $builder->build();
 
         $this->assertEquals($expected, $result);
@@ -95,11 +95,11 @@ class AccessTokenTest extends TestCase
             $appCertificate,
             $channelName,
             $uid,
-            RtcTokenBuilder::RoleAttendee,
+            RtcTokenBuilder::ROLE_ATTENDEE,
             $expiredTs
         );
         $parser = AccessToken::initWithToken($token, $appCertificate, $channelName, $uid);
-        $privilegeKey = AccessToken::Privileges["kJoinChannel"];
+        $privilegeKey = AccessToken::PRIVILEGES["kJoinChannel"];
         $this->assertEquals($parser->message->privileges[$privilegeKey], $expiredTs);
 
         $userAccount = "test_user";
@@ -108,11 +108,11 @@ class AccessTokenTest extends TestCase
             $appID,
             $appCertificate,
             $userAccount,
-            RtmTokenBuilder::RoleRtmUser,
+            RtmTokenBuilder::ROLE_RTM_USER,
             $expiredTs
         );
         $parser = AccessToken::initWithToken($token, $appCertificate, $channelName, $userAccount);
-        $privilegeKey = AccessToken::Privileges["kRtmLogin"];
+        $privilegeKey = AccessToken::PRIVILEGES["kRtmLogin"];
         $this->assertEquals($parser->message->privileges[$privilegeKey], $expiredTs);
 
         $appID = "";

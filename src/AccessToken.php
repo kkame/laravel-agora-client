@@ -2,10 +2,9 @@
 
 namespace Kkame\Agora;
 
-
 class AccessToken
 {
-    public const Privileges = [
+    public const PRIVILEGES = [
         "kJoinChannel" => 1,
         "kPublishAudioStream" => 2,
         "kPublishVideoStream" => 3,
@@ -42,7 +41,7 @@ class AccessToken
         }
     }
 
-    public function is_nonempty_string($name, $str)
+    public function isNonemptyString($name, $str): bool
     {
         if (is_string($str) && $str !== "") {
             return true;
@@ -51,13 +50,15 @@ class AccessToken
         return false;
     }
 
-    public static function init($appID, $appCertificate, $channelName, $uid)
+    public static function init($appID, $appCertificate, $channelName, $uid): ?AccessToken
     {
         $accessToken = new AccessToken();
 
-        if (!$accessToken->is_nonempty_string("appID", $appID) ||
-            !$accessToken->is_nonempty_string("appCertificate", $appCertificate) ||
-            !$accessToken->is_nonempty_string("channelName", $channelName)) {
+        if (
+            !$accessToken->isNonemptyString("appID", $appID) ||
+            !$accessToken->isNonemptyString("appCertificate", $appCertificate) ||
+            !$accessToken->isNonemptyString("channelName", $channelName)
+        ) {
             return null;
         }
 
@@ -70,7 +71,7 @@ class AccessToken
         return $accessToken;
     }
 
-    public static function initWithToken($token, $appCertificate, $channel, $uid)
+    public static function initWithToken($token, $appCertificate, $channel, $uid): ?AccessToken
     {
         $accessToken = new AccessToken();
         if (!$accessToken->extract($token, $appCertificate, $channel, $uid)) {
@@ -79,13 +80,13 @@ class AccessToken
         return $accessToken;
     }
 
-    public function addPrivilege($key, $expireTimestamp)
+    public function addPrivilege($key, $expireTimestamp): AccessToken
     {
         $this->message->privileges[$key] = $expireTimestamp;
         return $this;
     }
 
-    public function extract($token, $appCertificate, $channelName, $uid)
+    public function extract($token, $appCertificate, $channelName, $uid): bool
     {
         $ver_len = 3;
         $appid_len = 32;
@@ -95,9 +96,11 @@ class AccessToken
             return false;
         }
 
-        if (!$this->is_nonempty_string("token", $token) ||
-            !$this->is_nonempty_string("appCertificate", $appCertificate) ||
-            !$this->is_nonempty_string("channelName", $channelName)) {
+        if (
+            !$this->isNonemptyString("token", $token) ||
+            !$this->isNonemptyString("appCertificate", $appCertificate) ||
+            !$this->isNonemptyString("channelName", $channelName)
+        ) {
             return false;
         }
 
@@ -129,7 +132,7 @@ class AccessToken
         return true;
     }
 
-    public function build()
+    public function build(): string
     {
         $msg = $this->message->packContent();
         $val = array_merge(

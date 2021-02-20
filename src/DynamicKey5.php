@@ -4,7 +4,7 @@ namespace Kkame\Agora;
 
 class DynamicKey5
 {
-    public const version = "005";
+    public const VERSION = "005";
     public const NO_UPLOAD = "0";
     public const AUDIO_VIDEO_UPLOAD = "3";
 
@@ -109,7 +109,7 @@ class DynamicKey5
         );
         $content = self::packContent($serviceType, $signature, hex2bin($appID), $ts, $randomInt, $expiredTs, $extra);
         // echo bin2hex($content);
-        return self::version . base64_encode($content);
+        return self::VERSION . base64_encode($content);
     }
 
     public static function generateSignature(

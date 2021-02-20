@@ -9,7 +9,7 @@ class DynamicKey5Test extends TestCase
     /**
      * @test
      */
-    public function RecordingKey()
+    public function recordingKey()
     {
         $appID = env('appID');
         $appCertificate = env('appCertificate');
@@ -36,7 +36,7 @@ class DynamicKey5Test extends TestCase
     /**
      * @test
      */
-    public function MediaChannelKey()
+    public function mediaChannelKey()
     {
         $appID = env('appID');
         $appCertificate = env('appCertificate');
@@ -64,7 +64,7 @@ class DynamicKey5Test extends TestCase
     /**
      * @test
      */
-    public function InChannelPermission()
+    public function inChannelPermission()
     {
         $appID = env('appID');
         $appCertificate = env('appCertificate');

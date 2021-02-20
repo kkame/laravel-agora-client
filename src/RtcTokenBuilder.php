@@ -4,14 +4,14 @@ namespace Kkame\Agora;
 
 class RtcTokenBuilder
 {
-    public const RoleAttendee = 0;
-    public const RolePublisher = 1;
-    public const RoleSubscriber = 2;
-    public const RoleAdmin = 101;
+    public const ROLE_ATTENDEE = 0;
+    public const ROLE_PUBLISHER = 1;
+    public const ROLE_SUBSCRIBER = 2;
+    public const ROLE_ADMIN = 101;
 
     # appID: The App ID issued to you by Agora. Apply for a new App ID from
     #        Agora Dashboard if it is missing from your kit. See Get an App ID.
-    # appCertificate:	Certificate of the application that you registered in
+    # appCertificate: Certificate of the application that you registered in
     #                  the Agora Dashboard. See Get an App Certificate.
     # channelName:Unique channel name for the AgoraRTC session in the string format
     # uid: User ID. A 32-bit unsigned integer with a value ranging from
@@ -23,7 +23,7 @@ class RtcTokenBuilder
     #                    Agora Service within 10 minutes after the token is
     #                    generated, set expireTimestamp as the current
     #                    timestamp + 600 (seconds)./
-    public static function buildTokenWithUid($appID, $appCertificate, $channelName, $uid, $role, $privilegeExpireTs)
+    public static function buildTokenWithUid($appID, $appCertificate, $channelName, $uid, $role, $privilegeExpireTs): string
     {
         return RtcTokenBuilder::buildTokenWithUserAccount(
             $appID,
@@ -37,7 +37,7 @@ class RtcTokenBuilder
 
     # appID: The App ID issued to you by Agora. Apply for a new App ID from
     #        Agora Dashboard if it is missing from your kit. See Get an App ID.
-    # appCertificate:	Certificate of the application that you registered in
+    # appCertificate: Certificate of the application that you registered in
     #                  the Agora Dashboard. See Get an App Certificate.
     # channelName:Unique channel name for the AgoraRTC session in the string format
     # userAccount: The user account.
@@ -54,13 +54,15 @@ class RtcTokenBuilder
         $userAccount,
         $role,
         $privilegeExpireTs
-    ) {
+    ): string {
         $token = AccessToken::init($appID, $appCertificate, $channelName, $userAccount);
-        $Privileges = AccessToken::Privileges;
+        $Privileges = AccessToken::PRIVILEGES;
         $token->addPrivilege($Privileges["kJoinChannel"], $privilegeExpireTs);
-        if (($role == RtcTokenBuilder::RoleAttendee) ||
-            ($role == RtcTokenBuilder::RolePublisher) ||
-            ($role == RtcTokenBuilder::RoleAdmin)) {
+        if (
+            ($role == RtcTokenBuilder::ROLE_ATTENDEE) ||
+            ($role == RtcTokenBuilder::ROLE_PUBLISHER) ||
+            ($role == RtcTokenBuilder::ROLE_ADMIN)
+        ) {
             $token->addPrivilege($Privileges["kPublishVideoStream"], $privilegeExpireTs);
             $token->addPrivilege($Privileges["kPublishAudioStream"], $privilegeExpireTs);
             $token->addPrivilege($Privileges["kPublishDataStream"], $privilegeExpireTs);

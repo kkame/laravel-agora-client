@@ -2,7 +2,6 @@
 
 namespace Kkame\Agora;
 
-
 class DynamicKey4
 {
     public static function generateRecordingKey(
