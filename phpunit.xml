@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheResultFile=".phpunit.cache/test-results"
+         executionOrder="depends,defects"
+         beStrictAboutCoversAnnotation="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         verbose="true">
+    <testsuites>
+        <testsuite name="default">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage cacheDirectory=".phpunit.cache/code-coverage"
+              processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </coverage>
+    <php>
+        <env name="appID" value="970ca35de60c44645bbae8a215061b33"/>
+        <env name="appCertificate" value="5cfd2fd1755d40ecb72977518be15d3b"/>
+        <env name="channelName" value="7d72365eb983485397e3e3f9d460bdda"/>
+        <env name="ts" value="1446455472"/>
+        <env name="randomInt" value="58964981"/>
+        <env name="uid" value="2882341273"/>
+        <env name="expiredTs" value="1446455471"/>
+        <env name="salt" value="1"/>
+    </php>
+</phpunit>
