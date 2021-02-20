@@ -1,5 +1,8 @@
 ## Laravel Agora client package
 
+##IMPORTANT
+This is a test repository. Can be rebaseed at any time or a commit can be initialized
+
 ## Requirement
 - php 7.4
 
